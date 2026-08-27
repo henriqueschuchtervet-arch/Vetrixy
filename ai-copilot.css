@@ -1,0 +1,41 @@
+.ai-shell{display:grid;grid-template-columns:270px minmax(0,1fr);gap:14px;height:calc(100vh - 112px);min-height:570px}
+.ai-panel{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.ai-history{display:flex;flex-direction:column;min-height:0}
+.ai-history-head{padding:16px;border-bottom:1px solid var(--border)}
+.ai-history-title{font-family:'Orbitron',sans-serif;font-size:.64rem;letter-spacing:2px;color:var(--c);margin-bottom:12px}
+.ai-history-list{overflow:auto;padding:10px;display:flex;flex-direction:column;gap:7px}
+.ai-history-item{width:100%;text-align:left;background:#15112a;border:1px solid rgba(255,255,255,.07);color:#dce5ff;border-radius:7px;padding:10px;cursor:pointer;transition:.2s}
+.ai-history-item:hover,.ai-history-item.active{border-color:rgba(0,207,255,.45);background:rgba(0,207,255,.08)}
+.ai-history-item strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.86rem}
+.ai-history-item small{color:#7080a8;font-size:.7rem}
+.ai-chat{display:flex;flex-direction:column;min-width:0;min-height:0}
+.ai-chat-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,rgba(0,207,255,.05),rgba(155,77,255,.08))}
+.ai-chat-title{font-family:'Orbitron',sans-serif;font-size:.76rem;letter-spacing:1px}
+.ai-status{display:flex;align-items:center;gap:6px;color:var(--c);font-size:.68rem}
+.ai-status::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--c);box-shadow:0 0 9px var(--c)}
+.ai-context{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06);display:grid;grid-template-columns:minmax(220px,1fr) auto;gap:10px;align-items:end}
+.ai-context-note{color:#7180a5;font-size:.72rem;padding-bottom:4px}
+.ai-quick{display:flex;gap:7px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.06)}
+.ai-quick button{background:rgba(155,77,255,.08);border:1px solid rgba(155,77,255,.25);color:#cab0ff;padding:6px 10px;border-radius:12px;font-family:'Rajdhani',sans-serif;font-weight:700;cursor:pointer}
+.ai-quick button:hover{background:rgba(155,77,255,.17)}
+.ai-messages{flex:1;min-height:220px;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:13px}
+.ai-welcome{margin:auto;max-width:610px;text-align:center;color:#8c9abc;padding:28px}
+.ai-welcome-icon{font-size:2.4rem;margin-bottom:10px}
+.ai-welcome strong{display:block;color:#fff;font-family:'Orbitron',sans-serif;font-size:.82rem;margin-bottom:8px}
+.ai-message{max-width:86%;border-radius:10px;padding:12px 14px;line-height:1.55;white-space:pre-wrap;word-break:break-word;position:relative}
+.ai-message.user{align-self:flex-end;background:linear-gradient(135deg,rgba(0,207,255,.18),rgba(0,207,255,.08));border:1px solid rgba(0,207,255,.3);color:#f2fbff}
+.ai-message.assistant{align-self:flex-start;background:#17132c;border:1px solid rgba(155,77,255,.25);color:#e5e9ff}
+.ai-message .ai-copy{display:block;margin-top:8px;background:none;border:0;color:#7284ac;font-size:.68rem;cursor:pointer}
+.ai-message .ai-copy:hover{color:var(--c)}
+.ai-typing{opacity:.7;animation:aiPulse 1.2s infinite}
+@keyframes aiPulse{0%,100%{opacity:.45}50%{opacity:1}}
+.ai-compose{border-top:1px solid var(--border);padding:12px 14px;background:#0c0918}
+.ai-compose-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;align-items:end}
+.ai-compose textarea{width:100%;min-height:48px;max-height:150px;resize:vertical;background:#1a1530;border:1.5px solid #2a3060;border-radius:7px;padding:12px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:.94rem;outline:none}
+.ai-compose textarea:focus{border-color:var(--c);box-shadow:0 0 0 3px rgba(0,207,255,.1)}
+.ai-send{height:48px;min-width:94px}
+.ai-disclaimer{color:#637094;font-size:.66rem;line-height:1.35;margin-top:8px}
+.ai-error{margin:0 16px 10px;padding:9px 11px;border:1px solid rgba(255,79,107,.35);background:rgba(255,79,107,.09);color:#ff9caf;border-radius:6px;font-size:.78rem}
+#pg-ia button:disabled,#pg-ia textarea:disabled,#pg-ia select:disabled{cursor:not-allowed;opacity:.48}
+@media(max-width:900px){.ai-shell{grid-template-columns:1fr;height:auto;min-height:0}.ai-history{max-height:210px}.ai-chat{min-height:650px}.ai-context{grid-template-columns:1fr}.ai-context-note{display:none}}
+@media(max-width:560px){.ai-chat{min-height:620px}.ai-message{max-width:95%}.ai-compose-row{grid-template-columns:1fr}.ai-send{width:100%}}
