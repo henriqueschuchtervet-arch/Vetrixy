@@ -9,8 +9,6 @@
 
   window.initAiCopilot = async function initAiCopilot() {
     if (!uid() || !client()) return;
-    showPausedCopilot();
-    return;
     syncPatientOptions();
     if (!state.initialized) {
       state.initialized = true;
@@ -23,22 +21,6 @@
     }
     await loadAiConversations();
   };
-
-  function showPausedCopilot() {
-    const status = document.querySelector('#pg-ia .ai-status');
-    if (status) status.textContent = 'Em preparação · disponível em breve';
-    const messages = el('ai-messages');
-    if (messages) messages.innerHTML = '<div class="ai-welcome"><div class="ai-welcome-icon">✦</div><strong>COPILOTO CLÍNICO EM PREPARAÇÃO</strong><p>A estrutura segura já está pronta. O assistente será liberado assim que o serviço de IA for ativado, sem qualquer alteração no prontuário ou nos dados atuais.</p></div>';
-    const input = el('ai-input');
-    if (input) { input.value = ''; input.disabled = true; input.placeholder = 'Copiloto temporariamente indisponível'; }
-    const send = el('ai-send');
-    if (send) { send.disabled = true; send.textContent = 'EM BREVE'; }
-    const patient = el('ai-patient');
-    if (patient) patient.disabled = true;
-    document.querySelectorAll('#pg-ia button').forEach(button => button.disabled = true);
-    const history = el('ai-history-list');
-    if (history) history.innerHTML = '<div class="empty" style="padding:28px 12px"><div class="empty-ic">✦</div><p>Histórico disponível após a ativação</p></div>';
-  }
 
   function syncPatientOptions() {
     const select = el('ai-patient');
@@ -101,8 +83,6 @@
   };
 
   window.sendAiMessage = async function sendAiMessage() {
-    showPausedCopilot();
-    return;
     if (state.busy) return;
     const input = el('ai-input');
     const content = input.value.trim();
