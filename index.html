@@ -291,6 +291,11 @@ text-align:center;padding:80px 5%}
 .step-num{display:block;font-size:.95rem;font-weight:900;margin-bottom:3px;color:#fff}
 .step-tab.active .step-num{color:var(--c)}
 .step-tab.done .step-num{color:var(--p)}
+.flow-switch{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:18px 30px;border-bottom:1px solid var(--border);background:rgba(0,207,255,.025)}
+.flow-option{appearance:none;text-align:left;padding:14px;border:1px solid rgba(0,207,255,.18);border-radius:8px;background:#0a0815;color:#b8c3e0;cursor:pointer;font-family:'Rajdhani',sans-serif;transition:.2s}
+.flow-option:hover,.flow-option.active{border-color:var(--c);background:rgba(0,207,255,.09);color:#fff;box-shadow:0 0 18px rgba(0,207,255,.12)}
+.flow-option span{display:inline-block;color:var(--c);margin-right:7px;font-size:1rem}.flow-option strong{font-family:'Orbitron',sans-serif;font-size:.69rem;letter-spacing:.5px}.flow-option small{display:block;margin-top:6px;color:#93a1c4;font-size:.75rem;line-height:1.2}
+@media(max-width:480px){.flow-switch{padding:14px;gap:7px}.flow-option{padding:11px}.flow-option strong{font-size:.6rem}.flow-option small{font-size:.67rem}}
 .form-body{padding:30px 30px 22px}
 .form-title{font-family:'Orbitron',sans-serif;font-weight:900;font-size:1.1rem;color:#fff;margin-bottom:5px;letter-spacing:1px}
 .form-sub{font-size:.95rem;color:#99aacc;margin-bottom:24px;font-weight:500}
@@ -553,9 +558,7 @@ footer{background:var(--darker);padding:40px 5%;border-top:1px solid rgba(255,25
   </div>
 </nav>
 
-<div class="emergency-fixed" role="complementary" aria-label="Consulta veterinária urgente">
-  <div><strong>PRECISA DE VETERINÁRIO AGORA?</strong><small>Em risco imediato, procure atendimento presencial.</small></div>
-  <a href="https://wa.me/553299413473?text=Ol%C3%A1%2C%20preciso%20consultar%20um%20veterin%C3%A1rio%20agora." target="_blank" rel="noopener noreferrer">🚨 CONSULTAR AGORA</a>
+<a href="https://wa.me/553299413473?text=Ol%C3%A1%2C%20preciso%20consultar%20um%20veterin%C3%A1rio%20agora." target="_blank" rel="noopener noreferrer">🚨 CONSULTAR AGORA</a>
 </div>
 
 <!-- ══ WA FLOAT ══ -->
@@ -707,16 +710,15 @@ footer{background:var(--darker);padding:40px 5%;border-top:1px solid rgba(255,25
       </div>
 
 
+  <div class="flow-switch" role="tablist" aria-label="Quando você precisa da consulta">
+    <button class="flow-option active" type="button" role="tab" aria-selected="true" data-consult-flow="agendado" onclick="setConsultFlow('agendado')"><span>▦</span><strong>Agendar consulta</strong><small>Escolher data e horário</small></button>
+    <button class="flow-option" type="button" role="tab" aria-selected="false" data-consult-flow="agora" onclick="setConsultFlow('agora')"><span>◉</span><strong>Consultar agora</strong><small>Entrar na fila de prioridade</small></button>
+  </div>
+
   <div id="step1">
     <div class="form-body">
       <div class="form-title">Seus dados</div>
       <div class="form-sub">Informe somente o necessário para iniciarmos seu atendimento pelo WhatsApp.</div>
-      <div class="urgent-shortcut">
-        <strong>PRECISA CONSULTAR AGORA?</strong>
-        <p>Fale direto com a equipe pelo WhatsApp para verificar atendimento com prioridade.</p>
-        <a class="btn-primary" href="https://wa.me/553299413473?text=Ol%C3%A1%2C%20preciso%20consultar%20um%20veterin%C3%A1rio%20agora." target="_blank" rel="noopener noreferrer">🚨 CONSULTAR AGORA (URGÊNCIA)</a>
-        <small>Em risco imediato, procure um serviço veterinário presencial de emergência.</small>
-      </div>
       <div class="field-group"><div class="field"><label>Nome completo</label><input type="text" id="t-nome" placeholder="João Silva" autocomplete="name"></div><div class="field"><label>WhatsApp</label><input type="tel" id="t-tel" placeholder="(11) 99999-9999" maxlength="15" autocomplete="tel"></div></div>
     </div>
     <div class="form-footer"><span class="step-indicator">PASSO 1 DE 4</span><button class="btn-next" onclick="goStep(2)">PRÓXIMO →</button></div>
@@ -1183,10 +1185,17 @@ function initConsulta(){
   // masks
   document.getElementById('t-tel').addEventListener('input',function(){let v=this.value.replace(/\D/g,'');v=v.replace(/(\d{2})(\d)/,'($1) $2');v=v.replace(/(\d{5})(\d)/,'$1-$2');this.value=v;});
 }
+let consultFlow='agendado';
+function setConsultFlow(flow){
+  consultFlow=flow==='agora'?'agora':'agendado';
+  document.querySelectorAll('[data-consult-flow]').forEach(button=>{const active=button.dataset.consultFlow===consultFlow;button.classList.toggle('active',active);button.setAttribute('aria-selected',String(active));});
+  document.getElementById('tab3').style.display=consultFlow==='agora'?'none':'';
+}
 function selSp(el,name){document.querySelectorAll('.species-btn').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');state.species=name;}
 function goStep(n){
+  if(n===3&&consultFlow==='agora')n=4;
   if(n===2){const nm=document.getElementById('t-nome').value.trim();const tel=document.getElementById('t-tel').value.trim();if(!nm||!tel){alert('Preencha nome e WhatsApp.');return;}}
-  if(n===4){document.getElementById('s-tutor').textContent=document.getElementById('t-nome').value||'—';document.getElementById('s-pet').textContent=document.getElementById('p-nome').value||'—';document.getElementById('s-esp').textContent=state.species||'—';const m=document.getElementById('p-sint').value;document.getElementById('s-mot').textContent=m?m.substring(0,50)+'…':'—';document.getElementById('s-hor').textContent=(state.date&&state.time)?state.date+' às '+state.time:'—';}
+  if(n===4){document.getElementById('s-tutor').textContent=document.getElementById('t-nome').value||'—';document.getElementById('s-pet').textContent=document.getElementById('p-nome').value||'—';document.getElementById('s-esp').textContent=state.species||'—';const m=document.getElementById('p-sint').value;document.getElementById('s-mot').textContent=m?m.substring(0,50)+'…':'—';document.getElementById('s-hor').textContent=consultFlow==='agora'?'Consultar agora — fila de prioridade':((state.date&&state.time)?state.date+' às '+state.time:'—');}
   [1,2,3,4].forEach(i=>document.getElementById('step'+i).style.display='none');
   document.getElementById('step'+n).style.display='block';
   ['tab1','tab2','tab3','tab4'].forEach((id,i)=>{const tab=document.getElementById(id);tab.className='step-tab';if(i+1<n)tab.classList.add('done');else if(i+1===n)tab.classList.add('active');});
@@ -1206,12 +1215,12 @@ function confirmConsulta(){
     `🐾 *Pet:* ${pet} (${state.species||'—'})\n`+
     `📋 *Motivo:* ${sint||'—'}\n`+
     `⚠️ *Urgência:* ${urg||'—'}\n`+
-    `📅 *Horário:* ${state.date} às ${state.time||'—'}\n`+
+    `📅 *Modalidade:* ${consultFlow==='agora'?'CONSULTAR AGORA — FILA DE PRIORIDADE':state.date+' às '+(state.time||'—')}\n`+
     `📹 *Tipo:* ${tipo||'—'}\n\n`+
     `💰 Pagamento após o atendimento: R$ 49,90`
   );
   const waUrl=`https://wa.me/${WA_NUM}?text=${msg}`;
-  document.getElementById('success-detail').innerHTML=`<div style="font-family:Orbitron,sans-serif;font-size:.66rem;letter-spacing:2px;color:var(--c);margin-bottom:12px">DETALHES</div><div style="font-size:.9rem;color:#ccd6ff;line-height:2;font-weight:500">👤 Tutor: <strong style="color:#fff">${escapeHtml(nome)}</strong><br>🐾 Pet: <strong style="color:#fff">${escapeHtml(pet||'—')}</strong><br>📅 Horário: <strong style="color:#fff">${escapeHtml(state.date)} às ${escapeHtml(state.time||'—')}</strong><br>💰 Pague após a consulta: <strong style="color:var(--c)">R$ 49,90</strong></div>`;
+  document.getElementById('success-detail').innerHTML=`<div style="font-family:Orbitron,sans-serif;font-size:.66rem;letter-spacing:2px;color:var(--c);margin-bottom:12px">DETALHES</div><div style="font-size:.9rem;color:#ccd6ff;line-height:2;font-weight:500">👤 Tutor: <strong style="color:#fff">${escapeHtml(nome)}</strong><br>🐾 Pet: <strong style="color:#fff">${escapeHtml(pet||'—')}</strong><br>📅 Modalidade: <strong style="color:#fff">${escapeHtml(consultFlow==='agora'?'Consultar agora — fila de prioridade':state.date+' às '+(state.time||'—'))}</strong><br>💰 Pague após a consulta: <strong style="color:var(--c)">R$ 49,90</strong></div>`;
   document.getElementById('wa-confirm-btn').href=waUrl;
   [1,2,3,4].forEach(i=>document.getElementById('step'+i).style.display='none');
   document.getElementById('success-screen').style.display='block';
