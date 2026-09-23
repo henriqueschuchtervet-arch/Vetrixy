@@ -52,3 +52,10 @@ footer{border-top-color:rgba(255,255,255,.075);background:rgba(4,3,12,.9)}
   nav{padding-left:10px;padding-right:10px}.nav-logo img{width:27px;height:27px}.nav-brand{font-size:.78rem;letter-spacing:2px}.nav-right{gap:2px}.nav-link{padding:7px 3px;font-size:.68rem}.btn-nav{padding:8px 7px;font-size:.45rem}
   .hero{padding-left:12px;padding-right:12px}.hero h1{font-size:1.86rem}.species-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.p-stats{grid-template-columns:1fr}.pets-grid{grid-template-columns:1fr}
 }
+
+
+/* Atalho de urgência sempre visível para preservar a conversão */
+.emergency-fixed{position:fixed;left:50%;bottom:16px;z-index:490;display:flex;align-items:center;gap:16px;width:min(calc(100% - 32px),620px);transform:translateX(-50%);padding:12px 12px 12px 16px;border:1px solid rgba(255,79,203,.55);border-radius:12px;background:rgba(9,6,24,.96);box-shadow:0 18px 55px rgba(0,0,0,.62),0 0 28px rgba(155,77,255,.2);backdrop-filter:blur(16px)}
+.emergency-fixed>div{display:flex;min-width:0;flex:1;flex-direction:column}.emergency-fixed strong{font-family:'Orbitron',sans-serif;font-size:.68rem;letter-spacing:1px;color:#fff}.emergency-fixed small{margin-top:2px;color:#aeb8d8;font-size:.68rem;line-height:1.3}
+.emergency-fixed a{flex-shrink:0;border-radius:7px;padding:11px 15px;background:linear-gradient(135deg,#ff4fcb,#9b4dff);color:#fff;font-family:'Orbitron',sans-serif;font-size:.62rem;font-weight:900;letter-spacing:.8px;text-decoration:none;box-shadow:0 8px 24px rgba(155,77,255,.32)}
+@media(max-width:620px){.emergency-fixed{bottom:8px;gap:9px;width:calc(100% - 16px);padding:9px 9px 9px 11px}.emergency-fixed strong{font-size:.56rem;letter-spacing:.5px}.emergency-fixed small{font-size:.58rem}.emergency-fixed a{padding:10px 10px;font-size:.54rem;letter-spacing:.35px}#chat-btn{bottom:84px}#wa-float{bottom:150px}}
