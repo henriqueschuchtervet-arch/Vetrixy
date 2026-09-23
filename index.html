@@ -210,6 +210,12 @@ box-shadow:0 0 30px rgba(0,207,255,.3)}
 font-family:'Orbitron',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:2px;
 cursor:pointer;border:1.5px solid rgba(255,255,255,.18);transition:all .25s;display:inline-block;text-decoration:none}
 .btn-ghost:hover{border-color:var(--p);color:var(--p)}
+.urgent-direct{border-color:rgba(255,79,203,.5);color:#fff;background:rgba(155,77,255,.12)}
+.urgent-direct:hover{border-color:var(--pk);color:#fff;background:rgba(155,77,255,.22)}
+.urgent-shortcut{margin:0 0 22px;padding:18px;border:1px solid rgba(255,79,203,.32);border-radius:8px;background:linear-gradient(135deg,rgba(155,77,255,.12),rgba(0,207,255,.06));text-align:center}
+.urgent-shortcut strong{display:block;font-family:'Orbitron',sans-serif;font-size:.78rem;letter-spacing:1px;margin-bottom:6px}
+.urgent-shortcut p{color:#aeb8d8;font-size:.86rem;line-height:1.45;margin-bottom:12px}
+.urgent-shortcut small{display:block;color:#8390b5;font-size:.72rem;line-height:1.4;margin-top:10px}
 
 /* SECTIONS COMMON */
 .sec{padding:86px 5%;position:relative}
@@ -600,6 +606,7 @@ footer{background:var(--darker);padding:40px 5%;border-top:1px solid rgba(255,25
       </div>
       <div class="hero-btns">
         <button class="btn-primary" onclick="goPage('consulta')">⚡ INICIAR CONSULTA AGORA</button>
+        <a class="btn-ghost urgent-direct" href="https://wa.me/553299413473?text=Ol%C3%A1%2C%20preciso%20consultar%20um%20veterin%C3%A1rio%20agora." target="_blank" rel="noopener noreferrer">🚨 CONSULTAR AGORA (URGÊNCIA)</a>
         <button class="btn-ghost" onclick="goPage('sobre')">COMO FUNCIONA</button>
       </div>
     </div>
@@ -699,6 +706,12 @@ footer{background:var(--darker);padding:40px 5%;border-top:1px solid rgba(255,25
     <div class="form-body">
       <div class="form-title">Seus dados</div>
       <div class="form-sub">Informe somente o necessário para iniciarmos seu atendimento pelo WhatsApp.</div>
+      <div class="urgent-shortcut">
+        <strong>PRECISA CONSULTAR AGORA?</strong>
+        <p>Fale direto com a equipe pelo WhatsApp para verificar atendimento com prioridade.</p>
+        <a class="btn-primary" href="https://wa.me/553299413473?text=Ol%C3%A1%2C%20preciso%20consultar%20um%20veterin%C3%A1rio%20agora." target="_blank" rel="noopener noreferrer">🚨 CONSULTAR AGORA (URGÊNCIA)</a>
+        <small>Em risco imediato, procure um serviço veterinário presencial de emergência.</small>
+      </div>
       <div class="field-group"><div class="field"><label>Nome completo</label><input type="text" id="t-nome" placeholder="João Silva" autocomplete="name"></div><div class="field"><label>WhatsApp</label><input type="tel" id="t-tel" placeholder="(11) 99999-9999" maxlength="15" autocomplete="tel"></div></div>
     </div>
     <div class="form-footer"><span class="step-indicator">PASSO 1 DE 4</span><button class="btn-next" onclick="goStep(2)">PRÓXIMO →</button></div>
