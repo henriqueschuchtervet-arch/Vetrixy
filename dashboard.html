@@ -6,7 +6,7 @@
 <title>Vetrixy – Dashboard Veterinário</title>
 <script src="supabase.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="ai-copilot.css" rel="stylesheet">
+<link href="ai-copilot.css" rel="stylesheet">\n<script src="sncr-prescription.js" defer></script>
 <link href="professional-dashboard.css" rel="stylesheet">
 <style>
 :root{--c:#00cfff;--p:#9b4dff;--pk:#d44dff;--darker:#020108;--dark:#07050f;--mid:#0d0b1a;--card:#111028;--border:rgba(0,207,255,0.18)}
@@ -278,7 +278,7 @@ body{font-family:'Rajdhani',sans-serif;background:var(--darker);color:#fff;min-h
     <div class="page" id="pg-receitas">
       <div class="sec-hdr">
         <div><div class="sec-tag">// PRESCRIÇÃO</div><div class="sec-title">Receituários</div></div>
-        <button class="btn-new" onclick="openModal('nova-receita')">+ NOVO</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn-ghost" onclick="openSpecialPrescription()">+ RECEITA ESPECIAL</button><button class="btn-new" onclick="openModal('nova-receita')">+ RECEITA COMUM</button></div>
       </div>
       <div class="tbl-wrap">
         <table class="tbl">
@@ -477,6 +477,39 @@ body{font-family:'Rajdhani',sans-serif;background:var(--darker);color:#fff;min-h
     <div class="modal-footer">
       <button class="btn-ghost" onclick="closeModal('novo-prontuario')">CANCELAR</button>
       <button class="btn-save" onclick="salvarProntuario()">💾 SALVAR</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: RECEITA ESPECIAL / SNCR ══ -->
+<div class="modal-ov" id="modal-receita-especial">
+  <div class="modal">
+    <div class="modal-hdr">
+      <span class="modal-title">🔐 RECEITUÁRIO ESPECIAL</span>
+      <button class="btn-close" onclick="closeSpecialPrescription()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="admin-note">Fluxo separado do receituário comum. A emissão oficial depende da validação do serviço regulatório integrado.</div>
+      <div class="fgrid3">
+        <div class="f"><label>Pet</label><input id="sncr-pet" placeholder="Thor"></div>
+        <div class="f"><label>Espécie</label><select id="sncr-especie"><option>Canino</option><option>Felino</option><option>Ave</option><option>Roedor</option><option>Coelho</option><option>Réptil</option><option>Outro</option></select></div>
+        <div class="f"><label>Raça / Idade / Peso</label><input id="sncr-info" placeholder="Golden · 3a · 28kg"></div>
+        <div class="f"><label>Tutor</label><input id="sncr-tutor" placeholder="João Silva"></div>
+        <div class="f"><label>CPF</label><input id="sncr-cpf" placeholder="000.000.000-00"></div>
+        <div class="f"><label>Tipo de receituário</label><select id="sncr-tipo"><option value="">Selecione</option><option>Receita de Controle Especial</option><option>Notificação de Receita</option></select></div>
+      </div>
+      <div class="card-sec">
+        <div class="card-sec-title">PRESCRIÇÃO ESPECIAL</div>
+        <div class="fgrid2">
+          <div class="f"><label>Medicamento</label><input id="sncr-medicamento" placeholder="Medicamento / apresentação"></div>
+          <div class="f"><label>Dose</label><input id="sncr-dose" placeholder="Dose e frequência"></div>
+        </div>
+        <div class="f"><label>Instruções de uso</label><textarea id="sncr-instrucoes" placeholder="Via, intervalo, duração e orientações"></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeSpecialPrescription()">CANCELAR</button>
+      <button class="btn-save" id="sncr-submit" onclick="submitSpecialPrescription()">VALIDAR E EMITIR</button>
     </div>
   </div>
 </div>
