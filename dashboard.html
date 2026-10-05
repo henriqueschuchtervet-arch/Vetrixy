@@ -6,7 +6,7 @@
 <title>Vetrixy – Dashboard Veterinário</title>
 <script src="supabase.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="ai-copilot.css" rel="stylesheet">\n<script src="sncr-prescription.js" defer></script>
+<link href="ai-copilot.css" rel="stylesheet">\n<script src="sncr-prescription.js" defer></script>\n<script src="sncr-credential.js" defer></script>
 <link href="professional-dashboard.css" rel="stylesheet">
 <style>
 :root{--c:#00cfff;--p:#9b4dff;--pk:#d44dff;--darker:#020108;--dark:#07050f;--mid:#0d0b1a;--card:#111028;--border:rgba(0,207,255,0.18)}
@@ -379,6 +379,18 @@ body{font-family:'Rajdhani',sans-serif;background:var(--darker);color:#fff;min-h
         </div>
         <div style="margin-top:8px">
           <button class="btn-save" onclick="savePerfil()">💾 SALVAR PERFIL</button>
+        </div>
+      </div>
+      <div class="card-sec">
+        <div class="card-sec-title">INTEGRAÇÃO SNCR</div>
+        <div class="admin-note">Credenciamento individual do médico-veterinário autenticado. A identidade profissional de uma conta não é compartilhada com outros veterinários.</div>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px">
+          <span class="badge" id="sncr-credential-status">NÃO CONFIGURADO</span>
+          <span id="sncr-credential-detail" style="font-size:12px;opacity:.72">Consultando integração regulatória…</span>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+          <button class="btn-save" id="sncr-credential-button" onclick="startSncrCredential()">CREDENCIAR MEU SNCR</button>
+          <button class="btn-ghost" onclick="loadSncrCredentialStatus()">ATUALIZAR STATUS</button>
         </div>
       </div>
     </div>
