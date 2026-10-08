@@ -187,6 +187,7 @@ body{font-family:'Rajdhani',sans-serif;background:var(--darker);color:#fff;min-h
   <nav class="sb-nav">
     <button class="sb-item active" onclick="showPage('home',this)"><span class="ic">🏠</span>Dashboard</button>
     <button class="sb-item" onclick="showPage('pacientes',this)"><span class="ic">🐾</span>Pacientes</button>
+    <div style="padding:15px 17px 5px;color:rgba(155,77,255,.8);font-family:Orbitron,sans-serif;font-size:8px;letter-spacing:1.5px">DOCUMENTOS CLÍNICOS</div>
     <button class="sb-item" onclick="showPage('prontuarios',this)"><span class="ic">📋</span>Prontuários</button>
     <button class="sb-item" onclick="showPage('receitas',this)"><span class="ic">💊</span>Receituários</button>
     <button class="sb-item" onclick="showPage('requisicoes',this)"><span class="ic">🔬</span>Requisições</button>
@@ -1131,21 +1132,36 @@ function buildHeader(t, docNum, tr, lang = rxLang) {
     </div>`;
 }
 
+// QR de acesso ao VALIDAR (ITI): apenas acesso ao serviço oficial.
+ // A verificação exige o arquivo PDF assinado digitalmente; o QR não assina nem autentica o documento sozinho.
+const VALIDAR_ITI_QR = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUAQAAAABdRz15AAABFElEQVR42u2WsW1EMQxDnw7XUxvc/mP9DagJmOJfmgQpArk8NTZUEDZJi67ws+bB7/r0/uxVVXdVzb1d4ylhMAxKlud7AiUEUkPpDAcezcw5Tstj4T3eEwhtlZwmLPWoUKDvpwHy6n2QuxRF99ZLPBmwwY7QDu/JTeALuTLgtb7u7gtALbb+I0kcI4xwtOYvFshKRLZ4D5gmWAaoOuHnKY/K/fbh8r5WolgSRHv+FBPHQfYBP2MFkkDEATwkhGTEAX3hugIXBNprPYjl+6C3Pgfmi0RAYavHO9+4PDJ9Yt4rgUY01pzJN9wed53Ko5Feet3xeyQvGTMz3X0k3xgqjK7Xfh4A0ntd++UJ3z/KfP6J/+99AbwnyB9VJiFjAAAAAElFTkSuQmCC';
+
 function buildFooter(tr) {
+  const en = tr.lang === 'EN', es = tr.lang === 'ES';
+  const title = en ? 'VERIFY DIGITAL SIGNATURE' : es ? 'VERIFICAR FIRMA DIGITAL' : 'VERIFICAR ASSINATURA DIGITAL';
+  const instruction = en ? 'Scan and submit the digitally signed PDF at the official ITI validator.' :
+    es ? 'Escanee y envíe el PDF firmado al validador oficial del ITI.' :
+    'Escaneie e envie o PDF assinado ao validador oficial do ITI.';
+  const disclaimer = en ? 'QR provides access only; it is not a digital signature.' :
+    es ? 'El QR solo da acceso; no es una firma digital.' :
+    'O QR dá acesso ao validador; não é uma assinatura digital.';
   return `
-    <div style="margin-top:14mm;padding-top:5mm;border-top:1.5px solid #1a0a3a;display:flex;justify-content:space-between;align-items:flex-end">
-      <div>
-        <div style="height:14mm"></div>
-        <div style="border-top:1px solid #333;width:65mm;margin-bottom:3px"></div>
+    <div style="margin-top:12mm;padding-top:5mm;border-top:1.5px solid #1a0a3a;display:flex;justify-content:space-between;align-items:flex-end;gap:6mm;break-inside:avoid;page-break-inside:avoid">
+      <div style="flex:1;min-width:0">
+        <div style="height:12mm"></div>
+        <div style="border-top:1px solid #333;width:65mm;max-width:100%;margin-bottom:3px"></div>
         <div style="font-family:Arial,sans-serif;font-size:9pt;font-weight:700;color:#1a0a3a">${safe(vetData.nome)}</div>
         <div style="font-family:Arial,sans-serif;font-size:7pt;color:#666">${safe(vetData.crmv)} · ${safe(vetData.especialidade,'Clínica Geral')}</div>
-        <div style="font-family:Arial,sans-serif;font-size:6pt;color:#aaa;margin-top:3mm;font-style:italic">${tr.note}</div>
+        <div style="font-family:Arial,sans-serif;font-size:6pt;color:#777;margin-top:3mm;font-style:italic">${tr.note}</div>
       </div>
-      <div style="text-align:center">
-        <div style="width:22mm;height:22mm;border:1.5px solid #5a2d90;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#f8f4ff;margin:0 auto 3px">
-          <div style="font-family:Arial,sans-serif;font-size:5.5pt;font-weight:700;text-align:center;color:#5a2d90;line-height:1.4">DOCUMENTO<br>CLÍNICO<br>VETRIXY</div>
+      <div style="width:47mm;flex-shrink:0;display:flex;align-items:center;gap:2mm;border:1px solid #d8c8f0;border-radius:3px;background:#fbfaff;padding:2mm">
+        <img src="${VALIDAR_ITI_QR}" alt="QR para validar.iti.gov.br" width="82" height="82" style="width:21mm;height:21mm;flex-shrink:0;image-rendering:pixelated;object-fit:contain;background:#fff">
+        <div style="font-family:Arial,sans-serif;min-width:0">
+          <div style="font-size:5.3pt;font-weight:800;color:#4b2185;line-height:1.3">${title}</div>
+          <div style="font-size:5.3pt;font-weight:700;color:#111;margin-top:1mm;overflow-wrap:anywhere">validar.iti.gov.br</div>
+          <div style="font-size:4.8pt;color:#555;line-height:1.4;margin-top:1mm">${instruction}</div>
+          <div style="font-size:4.4pt;color:#777;line-height:1.25;margin-top:1mm">${disclaimer}</div>
         </div>
-        <div style="font-family:Arial,sans-serif;font-size:5pt;color:#aaa">CONFIRA ASSINATURA E CRMV</div>
       </div>
     </div>`;
 }
