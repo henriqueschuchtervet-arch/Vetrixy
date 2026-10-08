@@ -531,6 +531,7 @@ body{font-family:'Rajdhani',sans-serif;background:var(--darker);color:#fff;min-h
     <div class="modal-footer">
       <button class="btn-ghost" onclick="closeModal('nova-receita')">CANCELAR</button>
       <button class="btn-pdf" onclick="gerarPDFReceita()">📄 GERAR PDF</button>
+       <button class="btn-pdf" type="button" onclick="abrirAssinadorGov()" title="Abra o assinador GOV.BR após salvar o PDF. Assinatura feita fora da Vetrixy.">✍️ ASSINAR GOV.BR ↗</button>
       <button class="btn-save" onclick="salvarReceita()">💾 SALVAR</button>
     </div>
   </div>
@@ -602,6 +603,7 @@ body{font-family:'Rajdhani',sans-serif;background:var(--darker);color:#fff;min-h
     <div class="modal-footer">
       <button class="btn-ghost" onclick="closeModal('nova-requisicao')">CANCELAR</button>
       <button class="btn-pdf" onclick="gerarPDFRequisicao()">📄 GERAR PDF</button>
+       <button class="btn-pdf" type="button" onclick="abrirAssinadorGov()" title="Abra o assinador GOV.BR após salvar o PDF. Assinatura feita fora da Vetrixy.">✍️ ASSINAR GOV.BR ↗</button>
       <button class="btn-save" onclick="salvarRequisicao()">💾 SALVAR</button>
     </div>
   </div>
@@ -1205,6 +1207,15 @@ function openPrintFallback(html) {
   } else {
     alert('Não foi possível abrir a impressão automaticamente. Permita pop-ups para este site e tente novamente.');
   }
+}
+
+// Fluxo assistido: a assinatura acontece exclusivamente no domínio oficial do governo.
+function abrirAssinadorGov() {
+  const destino = 'https://assinador.iti.br/';
+  const aviso = 'Primeiro gere o PDF e salve o arquivo no dispositivo.\\n\\nO assinador oficial GOV.BR abrirá em outra aba. Entre com sua conta habilitada, envie o PDF, assine e baixe o documento assinado.\\n\\nA Vetrixy não recebe credenciais GOV.BR nem assina o documento automaticamente. Verifique se o tipo de assinatura atende às exigências da receita.';
+  if (!window.confirm(aviso)) return;
+  const aba = window.open(destino, '_blank', 'noopener,noreferrer');
+  if (!aba) window.location.assign(destino);
 }
 
 function gerarPDFReceita() {
