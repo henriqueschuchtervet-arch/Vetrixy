@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vetrixy.com.br/sitemap.xml
