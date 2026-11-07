@@ -1,0 +1,1 @@
+/* Feed Vetrixy: implementação original do pacote Claude pendente de transferência integral. */

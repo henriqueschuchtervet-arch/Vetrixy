@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Vetrixy | Atendimento presencial prévio</title>
+<style>body{margin:0;background:#090b18;color:#e9efff;font:16px system-ui}main{max-width:800px;margin:32px auto;padding:24px;background:#171a32;border-radius:16px}h1{color:#80dfff}label{display:block;margin:15px 0 5px}input,textarea{box-sizing:border-box;width:100%;padding:12px;border:1px solid #606687;border-radius:8px;background:#fff;color:#111}button{margin-top:20px;padding:12px 20px;background:#6f3dff;color:white;border:0;border-radius:8px;cursor:pointer}.notice{border-left:3px solid #f3bb54;padding:12px;background:#24233c}small{color:#c3c9e4}@media print{body{background:white;color:black}main{margin:0;max-width:none;background:white;color:black}.notice,button{display:none}input,textarea{border:0;border-bottom:1px solid #777;border-radius:0}}</style></head>
+<body><main><h1>Registro de atendimento presencial prévio</h1><p class="notice">Rascunho imprimível. Não é um documento oficial, não é salvo no prontuário e não comprova sozinho a elegibilidade para teleconsulta. Conferir requisitos do CFMV e assinatura do profissional.</p>
+<form id="registro"><label for="tutor">Tutor / responsável</label><input id="tutor" required autocomplete="off">
+<label for="animal">Animal / identificação</label><input id="animal" required>
+<label for="especie">Espécie e características</label><input id="especie" required>
+<label for="data">Data do atendimento presencial</label><input id="data" type="date" required>
+<label for="local">Local do atendimento</label><input id="local" required>
+<label for="vet">Médico-veterinário responsável</label><input id="vet" required>
+<label for="crmv">CRMV / UF</label><input id="crmv" required>
+<label for="historico">Histórico e exame físico presencial</label><textarea id="historico" rows="5" required></textarea>
+<label for="observacoes">Conduta, observações e documentos relacionados</label><textarea id="observacoes" rows="4"></textarea>
+<p><small>Assinatura do profissional: ___________________________________________</small></p>
+<button type="submit">Imprimir / salvar como PDF</button></form></main>
+<script>document.getElementById('registro').addEventListener('submit',function(e){e.preventDefault();if(this.reportValidity())window.print()})</script>
+</body></html>
